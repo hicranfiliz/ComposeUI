@@ -40,7 +40,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -61,4 +60,8 @@ dependencies {
     implementation(libs.kotlinx.coroutines.core)
 
     implementation(libs.accompanist.flowlayout)
+
+    implementation(libs.androidx.room.runtime)
+
+    implementation(libs.androidx.hilt.navigation.fragment)
 }
