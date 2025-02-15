@@ -4,10 +4,13 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
@@ -20,19 +23,16 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.wear.compose.material.Button
+import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.Text
 import com.example.composetest.ui.theme.ComposeTestTheme
-import com.example.composetest.ui.theme.color1
-import com.example.composetest.ui.theme.color2
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,20 +41,31 @@ class MainActivity : ComponentActivity() {
         setContent {
             ComposeTestTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                   Row(
-                       modifier = Modifier.fillMaxSize(),
-                       verticalAlignment = Alignment.CenterVertically,
-                       horizontalArrangement = Arrangement.Center
-                   ) {
-                       GradientButton(text = "Button", textColor = Color.White, gradient = Brush.horizontalGradient(
-                           colors = listOf(
-                               color1, color2
-                           )
-                       )) { }
-                       Button(onClick = {}) {
-                           Text("Button 2")
-                       }
-                   }
+
+                    val sections = listOf("A","B","C","D","E","F","G")
+
+                    LazyColumn(
+                        contentPadding = PaddingValues(all = 24.dp),
+                        verticalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        sections.forEachIndexed { index, section ->
+                            stickyHeader {
+                                Text(
+                                    text = "Section $section",
+                                    modifier = Modifier
+                                        .background(Color.LightGray)
+                                        .padding(12.dp)
+                                )
+                            }
+
+                            items(10) { item ->
+                                Text(
+                                    text = "Item $item from the section $section",
+                                    modifier = Modifier.padding(12.dp)
+                                )
+                            }
+                      }
+                    }
                 }
             }
         }
